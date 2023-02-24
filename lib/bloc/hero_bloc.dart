@@ -1,6 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:http/http.dart' as http;
-
 import 'package:advengers/bloc/HeroEvent.dart';
 import 'package:advengers/bloc/HeroState.dart';
 import 'package:advengers/Models/hero_api.dart';
@@ -8,10 +6,10 @@ import 'package:advengers/Models/Hero.dart';
 
 class HeroBloc extends Bloc<HeroEvent, HeroState> {
   HeroBloc() : super(const HeroState()) {
-    // TODO
+    on<HeroEvent>((event, emit) => {
+          // TODO?
+        });
   }
-
-  // final http Client httpClient;
 
   @override
   Stream<HeroState> mapEventToState(HeroEvent event) async* {
@@ -21,6 +19,8 @@ class HeroBloc extends Bloc<HeroEvent, HeroState> {
       // yield HeroStatus.initial;
 
       yield await _mapHeroToState(state);
+    } else {
+      // print('unkown event:', event);
     }
   }
 
@@ -38,7 +38,7 @@ class HeroBloc extends Bloc<HeroEvent, HeroState> {
           ? heroLoaded.copyWith(hasReachedMax: true)
           : heroLoaded.copyWith(characters: heroLoaded.characters + characters);
     } catch (e) {
-      // print(error.toString());
+      print(e.toString());
       // return ();
       return HeroError(error: e.toString());
     }

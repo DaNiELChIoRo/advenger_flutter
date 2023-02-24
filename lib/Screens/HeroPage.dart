@@ -13,9 +13,9 @@ class HeroPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(title: Text("Hero List")),
-        body: BlocProvider(
+        body: BlocProvider<HeroBloc>(
             create: (context) => HeroBloc()..add(HeroFetched()),
-            child: HeroBody()));
+            child: const HeroBody()));
   }
 }
 
