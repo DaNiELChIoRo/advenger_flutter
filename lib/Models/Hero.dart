@@ -15,12 +15,12 @@ class Character extends Equatable {
   final String description;
   final CharacterImage thumbnail;
 
-  factory Character.fromJson(dynamic json) {
+  factory Character.fromJson(Map<String, dynamic> data) {
     return Character(
-        id: json['id'],
-        name: json['name'],
-        description: json['description'],
-        thumbnail: json['thumbnail']);
+        id: data['id'],
+        name: data['name'],
+        description: data['description'],
+        thumbnail: CharacterImage.fromJson(data['thumbnail']));
   }
 
   @override
