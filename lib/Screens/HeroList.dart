@@ -65,6 +65,67 @@ class HeroDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      appBar: SimpleAppbar(
+        icon: Icons.arrow_back,
+        text: hero.name,
+        onPressed: () {
+          Navigator.pop(context);
+        },
+      ),
+      body: SafeArea(
+          bottom: true,
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.only(
+                top: 20.0,
+                left: 20,
+                right: 20,
+                bottom: 0,
+              ),
+              child: Stack(
+                children: [
+                  Column(
+                    children: [
+                      Image.network(hero.thumbnail.path +
+                          "." +
+                          hero.thumbnail.characterExtension),
+                      Text(
+                        hero.description,
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.normal),
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            ),
+          )),
+    );
   }
+}
+
+AppBar SimpleAppbar(
+    {required IconData icon,
+    required String text,
+    required VoidCallback onPressed}) {
+  return AppBar(
+    elevation: 0,
+    backgroundColor: Color.fromARGB(255, 20, 30, 217),
+    centerTitle: false,
+    title: Text(
+      text,
+      textAlign: TextAlign.center,
+      style: const TextStyle(color: Colors.black),
+    ),
+    leading: IconButton(
+      icon: Icon(
+        icon,
+        color: Colors.black,
+      ),
+      onPressed: () {
+        onPressed();
+      },
+    ),
+  );
 }
