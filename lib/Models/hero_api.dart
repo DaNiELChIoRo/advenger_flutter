@@ -14,13 +14,14 @@ class HeroApi {
     final private = '68aea112681dce29cfb6618f70dbfe79e1963a83';
     final public = 'fb0598dfc94187690bd795309844f3c8';
     final hash = generateMd5('${ts}${private}${public}');
-    final response = await http.get(Uri.https("gateway.marvel.com:443,"
-        '/v1/public/characters?ts=${ts}&apikey=fb0598dfc94187690bd795309844f3c8&hash=${hash}'));
+    final queryParameters = {'apikey': public, 'ts': ts, 'hash': hash};
+    final response = await http.get(Uri.https(
+        "gateway.marvel.com", '/v1/public/characters', queryParameters));
 
     if (response.statusCode != 200) {
-      throw Exception('Failed');
+      throw Exception(response.body);
     }
-    final json = jsonDecode(response.body) as List;
+    final json = jsonDecode(response.body)['data']['results'] as List;
     return json.map<Character>((hero) => Character.fromJson(hero)).toList();
   }
 }

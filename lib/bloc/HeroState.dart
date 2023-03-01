@@ -1,8 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:advengers/Models/Hero.dart';
 
-// enum HeroStatus { initial, success, failture(String) }
-
 class HeroState extends Equatable {
   const HeroState();
 
