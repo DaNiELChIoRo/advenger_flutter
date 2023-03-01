@@ -13,7 +13,7 @@ class Character extends Equatable {
   final int id;
   final String name;
   final String description;
-  final Image thumbnail;
+  final CharacterImage thumbnail;
 
   factory Character.fromJson(dynamic json) {
     return Character(
