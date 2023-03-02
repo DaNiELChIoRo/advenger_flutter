@@ -77,6 +77,9 @@ class _HeroBodyState extends State<HeroBody> {
     double maxScroll = _scrollController.position.maxScrollExtent;
     double currentScroll = _scrollController.position.pixels;
 
-    if (currentScroll == maxScroll) _heroBloc..add(HeroFetched());
+    if (currentScroll == maxScroll) {
+      _heroBloc.add(HeroRefresh());
+      // _heroBloc..add(HeroFetched());
+    }
   }
 }

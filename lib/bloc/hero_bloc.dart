@@ -8,14 +8,21 @@ import 'package:flutter/cupertino.dart';
 class HeroBloc extends Bloc<HeroEvent, HeroState> {
   HeroBloc() : super(const HeroState()) {
     on<HeroFetched>((event, emit) async {
-      List<Character> characters;
       // HeroLoaded heroLoaded = state as HeroLoaded;
-      characters = await HeroApi.fetchCharacters(start: 0);
-      emit(HeroLoaded(characters: characters));
+      _characters = await HeroApi.fetchCharacters(start: 0);
+      _start++;
+      emit(HeroLoaded(characters: _characters));
     });
 
-    on<HeroRefresh>((event, emit) {});
+    on<HeroRefresh>((event, emit) async {
+      List<Character> characters;
+      characters = await HeroApi.fetchCharacters(start: _start);
+      _start += characters.length;
+      emit(HeroLoaded(characters: _characters + characters));
+    });
   }
+  List<Character> _characters = [];
+  int _start = 0;
 
   Future<HeroState> _mapHeroToState(HeroState state) async {
     List<Character> characters;
