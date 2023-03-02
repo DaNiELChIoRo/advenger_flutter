@@ -87,11 +87,29 @@ class HeroDetail extends StatelessWidget {
                 children: [
                   Column(
                     children: [
-                      Image.network(hero.thumbnail.path +
-                          "." +
-                          hero.thumbnail.characterExtension),
+                      Image.network(
+                          hero.thumbnail.path +
+                              "." +
+                              hero.thumbnail.characterExtension,
+                          fit: BoxFit.fill,
+                          loadingBuilder: (context, child, loadingProgress) {
+                        if (loadingProgress == null) return child;
+                        return Center(
+                          child: CircularProgressIndicator(
+                            value: loadingProgress.expectedTotalBytes != null
+                                ? loadingProgress.cumulativeBytesLoaded /
+                                    loadingProgress.expectedTotalBytes!
+                                : null,
+                          ),
+                        );
+                      }),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(vertical: 28.0),
+                      ),
                       Text(
-                        hero.description,
+                        hero.description.isEmpty
+                            ? "missing description"
+                            : hero.description,
                         style: TextStyle(
                             fontSize: 18, fontWeight: FontWeight.normal),
                       ),
