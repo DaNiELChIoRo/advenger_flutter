@@ -16,6 +16,7 @@ class Character extends Equatable {
   final CharacterImage thumbnail;
 
   factory Character.fromJson(Map<String, dynamic> data) {
+    print(data['description']);
     return Character(
         id: data['id'],
         name: data['name'],
